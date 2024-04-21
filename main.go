@@ -15,12 +15,9 @@ func main() {
 		log.Print("main.main HandleFunc")
 		fmt.Fprintf(w, "Hello, %q!", html.EscapeString(r.URL.Path))
 	})
-	log.Print("main.main ListenAndServe: ", http.ListenAndServe(fmt.Sprintf(":%d", must2(strconv.Atoi(os.Getenv("PORT")))), nil))
-}
-
-func must2[T any](v T, err error) T {
+	port, err := strconv.Atoi(os.Getenv("PORT"))
 	if err != nil {
-		panic(err)
+		port = 8080
 	}
-	return v
+	log.Print("main.main ListenAndServe: ", http.ListenAndServe(fmt.Sprintf(":%d", port), nil))
 }
